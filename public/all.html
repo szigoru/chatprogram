@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: black;
+        }
+
+        h1 {
+            background-color: rgb(20, 241, 0);
+            padding: 4px;
+        }
+
+        div {
+            background-color: grey;
+            color: whitesmoke;
+            padding: 4px;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 15px;
+            font-size: medium;
+
+        }
+
+        h5 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            background-color: grey;
+            color: gold;
+            border-radius: 20px;
+            display: inline;
+            font-size: x-large;
+            border: solid;
+        }
+    </style>
+    <title>2.belényesi családi chatek</title>
+</head>
+
+<body>
+
+    <a href="./index.html">Marci</a>
+    <a href="./emma/index.html">Emma</a>
+    <a href="./all.html">Szövegek</a><br>
+    <h5>**** EDDIGI ÜZENETEK **** </h5><br>
+    <script>
+
+        getdata();
+
+        async function getdata() {
+            const response = await fetch('/api');
+            const data = await response.json();
+
+            for (item of data) {
+                let dzsomi = "Teszt";
+                const root = document.createElement('div');
+                //const mood = document.createElement('div');
+                const date = document.createElement('div');
+                date.style.borderBottom = "thick solid black";
+                date.style.fontSize='xx-small'
+                const author = document.createElement('div');
+
+                // mood.textContent = `${item.Szoveg}`;
+                author.textContent = `${item.Name}: ${item.Szoveg}`;
+                const dateString = new Date(item.timestamp).toLocaleString();
+                date.textContent = dateString;
+
+                //profil.append(root);
+                root.append(author, date);
+                document.body.append(root);
+                if (item.Name == "Marci") {
+                    author.style.backgroundColor = 'red'
+                }
+                else if (item.Name == "Mami"){
+                    author.style.backgroundColor = 'pink'
+                }else if (item.Name == "Emma"){
+                    author.style.backgroundColor = 'purple'
+            } else {
+                author.style.backgroundColor = 'yellow'
+                author.style.color = 'black'
+            }
+        }
+
+            console.log(data);
+        }
+    </script>
+</body>
+
+</html>

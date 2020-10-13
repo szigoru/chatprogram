@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title>belényesi családi chatek főoldal</title>
+    <style>
+        body {
+            background-color: beige;
+        }
+
+        h1 {
+            background-color: rgb(57, 245, 0);
+            padding: 4px;
+        }
+
+        div {
+            background-color: aqua;
+            padding: 4px;
+            font-family: Arial, Helvetica, sans-serif;
+            display: inline;
+        }
+
+        #send {
+            background-color: blue;
+            width: 200px;
+            height: 100px;
+            font-size: x-large;
+            box-shadow: tomato, 10px;
+            border-radius: 15px;
+
+        }
+
+        #send:hover {
+            background-color: chartreuse;
+            font-size: xx-large;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        írd be a Szövegeket
+    </h1>
+    <h1>Szia Marci!</h1>
+    <a href="./index.html">Marci</a>
+    <a href="./emma/index.html">Emma</a>
+    <a href="./all.html">Szövegek</a><br>
+
+    <div>
+        <label for="emberek">Mondd, ki vagy:</label>
+
+        <select name="emberek" id="people">
+            <option value="Marci">Marci</option>
+            <option value="Emma">Emma</option>
+            <option value="Mami">Mami</option>
+            <option value="Apa">Apa</option>
+            <option disabled='True' value="Ismeretlen">Ismeretlen</option>
+        </select>
+        <input id="tartalom" value="" type="text">
+        <button id="send" type="submit">Küldés</button>
+        <p id="status2"></p>
+        <a id="text-link" target="_blank"></a>
+    </div>
+
+
+    <script>
+
+        
+
+        
+
+        function addkiaszoveget() {
+
+            const status = document.querySelector('#status2');
+            let data2 = document.querySelector('#tartalom');
+            let datatosend = data2.value;
+
+            let szerzo = people.value;
+            console.log(szerzo)
+
+            status.innerHTML = datatosend;
+            let datatosending = { szerzo, datatosend };
+            console.log(datatosending);
+            console.log(datatosend);
+
+            function jelszokeres() {
+            var txt;
+            var person = prompt("Írd be a jelszavadat:", "...");
+            if (person !== "1234") {
+                alert('Nem megfelelő jelszó')
+                datatosending.szerzo = "Ismeretlen";
+            } else {
+                alert('Köszi')
+            }
+            //document.getElementById("demo").innerHTML = txt;
+        }
+
+
+
+            if (people.value == "Marci") {
+                jelszokeres()
+            } else { console.log('minemok') }
+
+
+
+            const data = { Name: datatosending.szerzo, Szoveg: datatosending.datatosend };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data)
+            };
+
+
+
+            fetch('/api', options).then(response => {
+                console.log(response);
+            });
+
+            return datatosend;
+        }
+
+
+
+        document.querySelector('#send').addEventListener('click', addkiaszoveget);
+
+    </script>
+
+</body>
+
+</html>

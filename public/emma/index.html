@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: pink;
+        }
+        h1 {
+            color: purple;
+        }
+    </style>
+    <title>3.belényesi családi chatek</title>
+</head>
+<body>
+    <h1>Szia Emma</h1>
+    <a href="/index.html">Marci</a>
+    <a href="/emma/index.html">Emma</a>
+
+    <div>
+        <label for="emberek">Mondd, ki vagy:</label>
+
+        <select name="emberek" id="people">
+            <option value="Marci">Marci</option>
+            <option value="Emma">Emma</option>
+            <option value="Mami">Mami</option>
+            <option value="Apa">Apa</option>
+        </select>
+        <input id="tartalom" value="" type="text">
+        <button id="send" type="submit">Küldés</button>
+        <p id="status2"></p>
+        <a id="text-link" target="_blank"></a>
+    </div>
+
+    <script>
+
+
+        function addkiaszoveget() {
+
+            const status = document.querySelector('#status2');
+            let data2 = document.querySelector('#tartalom');
+            let datatosend = data2.value;
+
+            let szerzo = people.value;
+            console.log(szerzo)
+
+            status.innerHTML = datatosend;
+            let datatosending = {szerzo, datatosend};
+            console.log(datatosending);
+            console.log(datatosend);
+
+
+            const data = { Name: datatosending.szerzo, Szoveg: datatosending.datatosend };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data)
+            };
+
+            fetch('/api', options).then(response => {
+                console.log(response);
+            });
+
+            return datatosend;
+        }
+
+        document.querySelector('#send').addEventListener('click', addkiaszoveget);
+
+    </script>
+
+
+</body>
+</html>
